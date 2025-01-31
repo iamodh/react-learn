@@ -26,9 +26,8 @@ Hook은 다른 함수보다 더 제한적입니다. 컴포넌트(또는 다른 H
 
 ```js
 const arr = [1, 2, 3, 4, 5];
-const removed = arr.splice(1, 2, "a", "b"); // [2, 3]을 삭제하고 'a', 'b'를 추가
-console.log(arr); // [1, 'a', 'b', 4, 5]  // 원본 배열이 변함
-console.log(removed); // [2, 3]  // 삭제된 요소들
+const newArr = arr.slice(1, 4); // [2, 3, 4]
+console.log(arr); // [1, 2, 3, 4, 5]  // 원본 배열은 변하지 않음
 ```
 
 ### 1. `splice()`
@@ -89,3 +88,11 @@ export default function Board() {
 불변성을 사용하는 것의 또 다른 장점이 있습니다. 기본적으로 부모 컴포넌트의 state가 변경되면 모든 자식 컴포넌트가 자동으로 다시 렌더링 됩니다. 여기에는 변경 사항이 없는 자식 컴포넌트도 포함됩니다. 리렌더링 자체가 사용자에게 보이는 것은 아니지만 성능상의 이유로 트리의 영향을 받지 않는 부분의 리렌더링을 피하는 것이 좋습니다. 불변성을 사용하면 컴포넌트가 데이터의 변경 여부를 저렴한 비용으로 판단할 수 있습니다. memo API 참고서에서 React가 컴포넌트를 다시 렌더링할 시점을 선택하는 방법에 대해 살펴볼 수 있습니다.
 
 > 불변성을 사용하면 이전 버전의 데이터를 재사용할 수 있고, 이전 state와 변경사항이 없는지 저렴한 비용으로 판단할 수 있다.
+
+## key를 사용하는 이유와 index를 key로 사용하면 안 되는 이유
+
+<a href="https://ko.legacy.reactjs.org/docs/reconciliation.html#recursing-on-children">자식에 대한 재귀적 처리</a>
+
+<a href="https://velog.io/@phjjj/React-map%EC%9C%BC%EB%A1%9C-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%ED%98%B8%EC%B6%9C%EC%8B%9C-key%EB%A5%BC-index%EB%A1%9C-%EB%91%90%EB%A9%B4-%EC%95%88%EB%90%98%EB%8A%94-%EC%9D%B4%EC%9C%A0">index를 key로 사용하는 경우의 문제점</a>
+
+> 컴포넌트가 동적인 리스트 형태로 렌더될 때 key를 이용해 서로를 구분한다면 컴포넌트가 가지고 있는 state를 유지하면서 효율적인 리스트 아이템의 이동, 추가, 제거가 가능하다.
