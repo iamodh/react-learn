@@ -1,4 +1,4 @@
-import PropTypes, { bool } from "prop-types";
+import PropTypes from "prop-types";
 import { useState } from "react";
 
 Square.propTypes = {
@@ -90,6 +90,7 @@ export default function Game() {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -106,6 +107,11 @@ export default function Game() {
       description = "Go to move #" + move;
     } else {
       description = "Go to game start";
+    }
+
+    console.log(history.length - 1, currentMove, move);
+    if (currentMove === move) {
+      return <li key={move}>당신은 {currentMove}번째 순서에 있습니다…</li>;
     }
 
     return (
